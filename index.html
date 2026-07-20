@@ -6,7 +6,7 @@
 <title>Crédito Finan — Préstamos personales sin adelantos | Posadas, Misiones</title>
 <link rel="icon" type="image/png" href="simbolo.png">
 <link rel="apple-touch-icon" href="simbolo.png">
-<meta name="description" content="Consultora de crédito con más de 10 líneas de préstamos personales. Sin adelantos, gestión 100% online y oficina propia en Posadas. Consultá por WhatsApp.">
+<meta name="description" content="Préstamos personales desde $50.000 hasta $10.000.000 en 3 a 48 cuotas fijas. Sin adelantos, 100% online y oficina propia en Rivadavia 1642, Posadas. Consultá por WhatsApp.">
 <meta property="og:title" content="Crédito Finan — Solución Efectiva">
 <meta property="og:description" content="Préstamos personales con más de 10 entidades. Sin adelantos. 100% online. Oficina propia.">
 <meta property="og:type" content="website">
@@ -21,8 +21,10 @@
   "slogan": "Solución Efectiva",
   "description": "Consultora de crédito. Gestión de préstamos personales con más de 10 entidades crediticias. Sin adelantos, gestión 100% online y oficina propia.",
   "areaServed": "Argentina",
-  "address": {"@type": "PostalAddress", "addressLocality": "Posadas", "addressRegion": "Misiones", "addressCountry": "AR"},
-  "telephone": "+543765377973"
+  "address": {"@type": "PostalAddress", "streetAddress": "Rivadavia 1642, Piso 9F, Edificio Mercurio", "addressLocality": "Posadas", "addressRegion": "Misiones", "addressCountry": "AR"},
+  "telephone": "+543765377973",
+  "sameAs": ["https://www.facebook.com/share/193cxbmU1e/", "https://www.instagram.com/credifinan"],
+  "makesOffer": {"@type": "Offer", "name": "Préstamos personales", "priceCurrency": "ARS", "priceSpecification": {"@type": "PriceSpecification", "minPrice": 50000, "maxPrice": 10000000, "priceCurrency": "ARS"}}
 }
 </script>
 <style>
@@ -37,7 +39,7 @@
   --linea:rgba(29,33,30,.16);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden;max-width:100%}
 body{
   background:var(--hueso);
   color:var(--tinta);
@@ -70,12 +72,17 @@ a{color:inherit}
 .nav-logo .lg-main em{font-style:normal;color:var(--verde)}
 .nav-logo .lg-tag{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--tinta-suave)}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.panel-marca{background:linear-gradient(155deg,var(--verde-oscuro),#16311d);color:var(--hueso);border-radius:16px;padding:2.1rem 1.9rem;transform:rotate(1.2deg);box-shadow:0 26px 60px -24px rgba(38,73,47,.55);border:1px solid rgba(243,240,233,.12)}
-.panel-stats{display:flex;flex-direction:column;gap:1.05rem}
+.panel-marca{background:linear-gradient(155deg,var(--verde-oscuro),#16311d);color:var(--hueso);border-radius:16px;padding:2.1rem 1.9rem;box-shadow:0 26px 60px -24px rgba(38,73,47,.55);border:1px solid rgba(243,240,233,.12)}
+.panel-monto{display:flex;flex-direction:column}
+.pm-kicker{font-size:.85rem;color:color-mix(in srgb,var(--hueso) 70%,transparent)}
+.pm-cifra{display:block;margin-top:.2rem;font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(2.1rem,4vw,2.9rem);line-height:1;letter-spacing:-.04em;color:var(--hueso);font-variant-numeric:tabular-nums}
+.pm-detalle{margin-top:.6rem;font-size:.92rem;line-height:1.45;color:color-mix(in srgb,var(--hueso) 84%,transparent)}
+.pm-detalle b{font-family:'Bricolage Grotesque';font-weight:800;color:var(--hueso)}
+.panel-stats{display:flex;flex-direction:column;gap:.9rem;margin-top:1.5rem;padding-top:1.3rem;border-top:1px solid rgba(243,240,233,.18)}
 .pstat{display:flex;align-items:baseline;gap:.85rem}
-.pstat b{font-family:'Bricolage Grotesque';font-weight:800;font-size:1.85rem;color:var(--hueso);min-width:2.4em;letter-spacing:-.02em}
-.pstat span{font-size:.95rem;color:color-mix(in srgb,var(--hueso) 82%,transparent)}
-.panel-pie{margin-top:1.5rem;font-size:.84rem;color:color-mix(in srgb,var(--hueso) 68%,transparent)}
+.pstat b{font-family:'Bricolage Grotesque';font-weight:800;font-size:1.5rem;color:var(--hueso);min-width:2.6em;letter-spacing:-.02em}
+.pstat span{font-size:.92rem;color:color-mix(in srgb,var(--hueso) 82%,transparent)}
+.panel-pie{margin-top:1.3rem;padding-top:1.05rem;border-top:1px solid rgba(243,240,233,.12);font-size:.84rem;color:color-mix(in srgb,var(--hueso) 68%,transparent)}
 .nav-links{display:flex;gap:1.8rem;align-items:center;font-weight:500;font-size:.92rem}
 .nav-links a{text-decoration:none;opacity:.75;transition:opacity .2s}
 .nav-links a:hover{opacity:1}
@@ -290,6 +297,12 @@ footer{
 .footer-top{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
 .footer-top .f-logo{font-family:'Bricolage Grotesque';font-weight:800;font-size:1.2rem;color:var(--hueso)}
 .footer-top .f-logo em{font-style:normal;color:var(--verde)}
+.f-datos{display:flex;gap:2.4rem;flex-wrap:wrap;line-height:1.6}
+.f-datos strong{color:var(--hueso);font-weight:700}
+.f-redes{display:flex;flex-direction:column;gap:.5rem}
+.f-redes a{display:inline-flex;align-items:center;gap:.45rem;color:color-mix(in srgb,var(--hueso) 82%,transparent);transition:color .2s}
+.f-redes a:hover{color:var(--hueso)}
+.f-redes svg{width:17px;height:17px;flex:none}
 .footer-legal{border-top:1px solid rgba(243,240,233,.15);padding-top:1.5rem;line-height:1.7;max-width:70em}
 .footer-legal p{margin-bottom:.6rem}
 
@@ -337,19 +350,22 @@ footer{
       <span class="hero-nota">Respondemos en el día.</span>
     </div>
     <div class="sellos rv">
-      <div class="sello"><b><span class="check">✓</span>Sin adelantos</b><span>Nunca te pedimos plata para gestionar.</span></div>
       <div class="sello"><b><span class="check">✓</span>100% online</b><span>Todo el trámite desde tu celular.</span></div>
       <div class="sello"><b><span class="check">✓</span>Oficina propia</b><span>Atención al público, cara a cara.</span></div>
     </div>
   </div>
   <div class="hero-visual">
     <div class="panel-marca">
+      <div class="panel-monto">
+        <span class="pm-kicker">Gestionamos préstamos de hasta</span>
+        <b class="pm-cifra" data-count="10000000" data-prefix="$" data-sep="1">$10.000.000</b>
+        <span class="pm-detalle">Desde <b>$50.000</b> · en <b>3 a 48 cuotas</b> fijas, en pesos</span>
+      </div>
       <div class="panel-stats">
         <div class="pstat"><b data-count="0" data-prefix="$">$0</b><span>de adelanto. Nunca.</span></div>
         <div class="pstat"><b data-count="10" data-prefix="+">+10</b><span>entidades para comparar por vos</span></div>
-        <div class="pstat"><b data-count="100" data-suffix="%">100%</b><span>gestión online</span></div>
       </div>
-      <div class="panel-pie">Oficina propia · Posadas, Misiones</div>
+      <div class="panel-pie">Oficina propia · Rivadavia 1642, Posadas</div>
     </div>
   </div>
 </header>
@@ -398,7 +414,7 @@ footer{
       <h2 class="rv">Existimos de verdad. Vení a conocernos.</h2>
       <p class="rv">Crédito Finan es una consultora de crédito con oficina propia y atención al público. Detrás de cada gestión hay personas que dan la cara, no un call center anónimo.</p>
       <div class="oficina-datos rv">
-        <div><span class="check">✓</span><span>Oficina propia con atención al público</span></div>
+        <div><span class="check">✓</span><span><strong>Rivadavia 1642</strong> (entre San Martín y Sarmiento) · Piso 9F, Edificio Mercurio · Posadas</span></div>
         <div><span class="check">✓</span><span>Operamos en todo el país, gestión 100% online</span></div>
         <div><span class="check">✓</span><span>Trabajo transparente: sin letra chica ni sorpresas</span></div>
       </div>
@@ -411,6 +427,10 @@ footer{
   <details class="rv">
     <summary>¿Me van a pedir plata por adelantado?</summary>
     <p>No, nunca. Ese es justamente nuestro sello: no pedimos adelantos ni "gastos de gestión" previos. Si alguien te pide dinero para destrabar un préstamo, desconfiá: es la estafa más común del rubro.</p>
+  </details>
+  <details class="rv">
+    <summary>¿Cuánto puedo pedir y en cuántas cuotas?</summary>
+    <p>Gestionamos préstamos <strong>desde $50.000 hasta $10.000.000</strong>, en pesos, con planes de <strong>3 a 48 cuotas fijas</strong>. El monto y el plazo final dependen de tu perfil y de la entidad que apruebe: escribinos y te decimos en el día qué opciones tenés.</p>
   </details>
   <details class="rv">
     <summary>¿Qué necesito para consultar?</summary>
@@ -442,9 +462,19 @@ footer{
         <div class="f-logo">Crédito <em>Finan</em></div>
         <div>Solución Efectiva</div>
       </div>
-      <div>
-        WhatsApp: <a href="https://wa.me/543765377973">376 537-7973</a><br>
-        Posadas, Misiones · Argentina
+      <div class="f-datos">
+        <div><strong>Oficina</strong><br>Rivadavia 1642 (entre San Martín y Sarmiento)<br>Piso 9F · Edificio Mercurio<br>Posadas, Misiones · Argentina</div>
+        <div><strong>Contacto</strong><br>WhatsApp: <a href="https://wa.me/543765377973">376 537-7973</a></div>
+        <div class="f-redes">
+          <a href="https://www.facebook.com/share/193cxbmU1e/" target="_blank" rel="noopener" aria-label="Facebook de Crédito Finan">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"/></svg>
+            Facebook
+          </a>
+          <a href="https://www.instagram.com/credifinan" target="_blank" rel="noopener" aria-label="Instagram de Crédito Finan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+            @credifinan
+          </a>
+        </div>
       </div>
     </div>
     <div class="footer-legal">
@@ -556,7 +586,9 @@ footer{
   })();
 
   function fmt(el, v){
-    return (el.getAttribute('data-prefix')||'') + Math.round(v) + (el.getAttribute('data-suffix')||'');
+    var n = Math.round(v);
+    var txt = el.getAttribute('data-sep') ? n.toLocaleString('es-AR') : String(n);
+    return (el.getAttribute('data-prefix')||'') + txt + (el.getAttribute('data-suffix')||'');
   }
 
   /* Sin motion: todo visible, contadores en su valor final */
