@@ -642,11 +642,16 @@ footer{
     });
   });
 
-  /* Foto de la oficina: parallax + zoom sutil dentro de su marco */
+  /* Foto de la oficina: parallax vertical, SIN zoom.
+     El scale:1.18 anterior agrandaba la foto un 18% y el marco le cortaba ~9%
+     por cada costado — se comía la "n" del cartel "Crédito Finan", que es
+     justo lo que esa sección tiene que probar.
+     Ahora la foto es 1200x1000 (más alta que el marco 4:3): el sobrante
+     vertical es el que usa el parallax, y a lo ancho calza exacto. */
   var ofi = document.querySelector('.oficina-foto img');
   if(ofi){
-    gsap.fromTo(ofi, {yPercent:-7, scale:1.18}, {
-      yPercent:7, scale:1.18, ease:'none',
+    gsap.fromTo(ofi, {yPercent:-4}, {
+      yPercent:4, ease:'none',
       scrollTrigger:{ trigger:'.oficina', start:'top bottom', end:'bottom top', scrub:0.6 }
     });
   }
