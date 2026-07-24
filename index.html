@@ -279,6 +279,10 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .faq summary::after{content:"+";font-weight:400;font-size:1.5rem;color:var(--verde);transition:transform .25s}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq details p{padding:0 .2rem 1.4rem;color:var(--tinta-suave);max-width:42em}
+.faq details p:not(:last-child){padding-bottom:.7rem}
+.faq details ul{list-style:none;margin:0;padding:0 .2rem 1.4rem;color:var(--tinta-suave);max-width:42em}
+.faq details ul li{position:relative;padding-left:1.5em;margin-bottom:.45em}
+.faq details ul li::before{content:"✓";position:absolute;left:0;color:var(--verde);font-weight:700}
 
 /* ---------- CTA final ---------- */
 .cta-final{
@@ -434,7 +438,13 @@ footer{
   </details>
   <details class="rv">
     <summary>¿Qué necesito para consultar?</summary>
-    <p>Solo tu DNI y contarnos tu situación laboral. Con eso ya podemos ver qué líneas de crédito se ajustan a tu perfil. La consulta no tiene costo ni compromiso.</p>
+    <p>Tené a mano estos requisitos:</p>
+    <ul>
+      <li>DNI</li>
+      <li>Último recibo</li>
+      <li>Movimientos bancarios de los últimos 2 meses</li>
+    </ul>
+    <p>Con eso ya podemos ver qué líneas de crédito se ajustan a tu perfil. La consulta no tiene costo ni compromiso.</p>
   </details>
   <details class="rv">
     <summary>¿Cuánto tarda?</summary>
