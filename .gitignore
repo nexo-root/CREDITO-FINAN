@@ -3,3 +3,8 @@ assets/oficina-anterior.jpg
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Archivos de trabajo internos: no van a la web publica de la clienta
+INSTRUCCIONES-PLANILLA.md
+PLANILLA-EJEMPLO.xlsx
+apps-script.gs

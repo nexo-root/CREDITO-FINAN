@@ -284,14 +284,6 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .faq details ul li{position:relative;padding-left:1.5em;margin-bottom:.45em}
 .faq details ul li::before{content:"✓";position:absolute;left:0;color:var(--verde);font-weight:700}
 
-/* ---------- CTA final ---------- */
-.cta-final{
-  padding:clamp(5rem,11vw,8rem) clamp(1.2rem,4vw,3rem);
-  text-align:center;
-}
-.cta-final h2{font-size:clamp(2.2rem,5.4vw,4.2rem);max-width:14em;margin:0 auto 1.4rem}
-.cta-final p{color:var(--tinta-suave);margin-bottom:2.2rem}
-
 /* ---------- Footer ---------- */
 footer{
   background:var(--tinta);color:color-mix(in srgb,var(--hueso) 75%,transparent);
@@ -316,6 +308,140 @@ footer{
 @media(prefers-reduced-motion:reduce){
   .rv{opacity:1;transform:none}
   .statement h2 .tach::after{transform:scaleX(1)!important;transition:none!important}
+}
+/* ============================================================
+   TESTIMONIOS
+   Soledad pidió "una parte donde los clientes dejen su comentario".
+   Se hizo con testimonios que ella controla, NO con comentarios
+   abiertos: en el rubro del crédito una queja pública de alguien
+   a quien no le aprobaron el préstamo frena a todos los demás.
+   ============================================================ */
+.testi{background:var(--hueso-2);padding:clamp(4rem,8vw,6.5rem) clamp(1.2rem,4vw,3rem)}
+.testi-in{max-width:1180px;margin:0 auto}
+.testi-grid{
+  margin-top:2.6rem;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem;
+}
+.tcard{
+  background:var(--hueso);border:1px solid var(--linea);border-radius:14px;
+  padding:1.7rem 1.6rem;display:flex;flex-direction:column;position:relative;
+}
+.tcard .estrellas{display:flex;gap:.15rem;margin-bottom:.9rem}
+.tcard .estrellas svg{width:17px;height:17px;color:var(--verde)}
+.tcard blockquote{
+  font-size:1.02rem;line-height:1.6;color:var(--tinta);flex:1;
+  font-style:normal;
+}
+.tcard blockquote::before{content:"“";font-family:Georgia,serif;font-size:2.4rem;
+  line-height:0;color:var(--verde);opacity:.45;vertical-align:-.35em;margin-right:.1em}
+.tcard .quien{
+  margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--linea);
+  font-size:.92rem;color:var(--tinta-suave);
+}
+.tcard .quien b{display:block;color:var(--tinta);font-weight:700;font-size:.98rem}
+/* Rótulo de EJEMPLO: mientras no haya testimonios reales, cada tarjeta
+   avisa que es una muestra. Así, si la página se publica antes de
+   reemplazarlos, nadie los confunde con opiniones verdaderas. */
+.tcard.ejemplo{border-style:dashed}
+.tcard .rotulo-ej{
+  position:absolute;top:.85rem;right:.9rem;
+  background:var(--tinta);color:var(--hueso);
+  font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  padding:.24rem .55rem;border-radius:4px;
+}
+.testi-pie{margin-top:1.8rem;font-size:.95rem;color:var(--tinta-suave)}
+
+/* ============================================================
+   FORMULARIO
+   Los 5 datos que pidió Soledad. Con validación real: sin un DNI
+   y un teléfono válidos no se puede enviar, así se filtra a quien
+   entra a boludear y le llega gente que de verdad quiere el crédito.
+   ============================================================ */
+.form-sec{background:var(--verde-oscuro);color:var(--hueso);
+  padding:clamp(4rem,8vw,6.5rem) clamp(1.2rem,4vw,3rem);position:relative;overflow:hidden}
+.form-in{max-width:900px;margin:0 auto;position:relative}
+.form-sec h2{font-size:clamp(1.9rem,3.8vw,2.9rem);margin-bottom:.8rem}
+.form-sec h2 em{font-style:normal;color:#e8b64c}
+.form-sec .bajada{color:color-mix(in srgb,var(--hueso) 84%,transparent);max-width:44em}
+.form-caja{
+  margin-top:2.4rem;background:var(--hueso);color:var(--tinta);
+  border-radius:16px;padding:clamp(1.6rem,3.5vw,2.6rem);
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.5);
+}
+.form-fila{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.campo{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.1rem}
+.campo label{font-size:.9rem;font-weight:600;color:var(--tinta)}
+.campo label .req{color:#c0392b}
+.campo input,.campo select{
+  font-family:'Archivo',sans-serif;font-size:1rem;color:var(--tinta);
+  background:#fff;border:1.5px solid var(--linea);border-radius:9px;
+  padding:.78rem .9rem;transition:border-color .18s,box-shadow .18s;
+  width:100%;
+}
+.campo input:focus,.campo select:focus{
+  outline:none;border-color:var(--verde);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--verde) 18%,transparent);
+}
+.campo .pista{font-size:.82rem;color:var(--tinta-suave)}
+.campo .error{font-size:.84rem;color:#c0392b;font-weight:600;display:none}
+.campo.mal input,.campo.mal select{border-color:#c0392b}
+.campo.mal .error{display:block}
+.campo.bien input,.campo.bien select{border-color:var(--verde)}
+/* trampa anti-bot: invisible para personas, los robots la completan */
+.trampa{position:absolute!important;left:-9999px!important;opacity:0!important;
+  height:0!important;width:0!important;pointer-events:none!important}
+.form-enviar{
+  display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+  background:var(--verde);color:var(--hueso);border:none;cursor:pointer;
+  font-family:'Archivo',sans-serif;font-size:1.04rem;font-weight:700;
+  padding:1rem 2rem;border-radius:999px;width:100%;
+  transition:background .2s,transform .2s;
+}
+.form-enviar:hover{background:var(--verde-oscuro);transform:translateY(-1px)}
+.form-enviar:disabled{opacity:.6;cursor:wait;transform:none}
+.form-enviar svg{width:18px;height:18px;flex:none}
+.form-legal{margin-top:1.1rem;font-size:.85rem;color:var(--tinta-suave);line-height:1.5}
+.form-legal b{color:var(--tinta)}
+.form-o{margin-top:1.4rem;text-align:center;font-size:.93rem;
+  color:color-mix(in srgb,var(--hueso) 76%,transparent)}
+.form-o a{color:#e8b64c;font-weight:600}
+/* pantalla de gracias */
+.form-ok{display:none;text-align:center;padding:1.5rem .5rem}
+.form-ok .tilde{
+  width:62px;height:62px;margin:0 auto 1.2rem;border-radius:50%;
+  background:var(--verde-tinte);display:grid;place-items:center;
+}
+.form-ok .tilde svg{width:32px;height:32px;color:var(--verde)}
+.form-ok h3{font-size:1.5rem;margin-bottom:.6rem}
+.form-ok p{color:var(--tinta-suave);max-width:34em;margin:0 auto}
+.form-caja.listo .form-cuerpo{display:none}
+.form-caja.listo .form-ok{display:block}
+@media(max-width:640px){
+  .form-fila{grid-template-columns:1fr;gap:0}
+  .form-caja{padding:1.3rem 1.1rem}
+  .testi-grid{margin-top:1.8rem;gap:1rem}
+  .tcard{padding:1.3rem 1.2rem}
+}
+
+/* Celular: las dos secciones nuevas, compactas. Un formulario de 6 campos
+   ocupa mucho por naturaleza; se recorta el aire, nunca el tamaño de los
+   campos (44px de alto es el mínimo para tocar con el dedo). */
+@media(max-width:640px){
+  .testi{padding:2.6rem 1.1rem}
+  .testi-grid{margin-top:1.5rem;gap:.9rem}
+  .tcard{padding:1.2rem 1.1rem}
+  .tcard blockquote{font-size:.98rem}
+  .tcard .quien{margin-top:.9rem;padding-top:.8rem}
+  .testi-pie{margin-top:1.3rem;font-size:.92rem}
+
+  .form-sec{padding:2.6rem 1.1rem}
+  .form-sec .bajada{font-size:.98rem}
+  .form-caja{margin-top:1.6rem;border-radius:13px}
+  .campo{margin-bottom:.85rem;gap:.3rem}
+  .campo label{font-size:.88rem}
+  .campo .pista{font-size:.8rem}
+  .form-legal{margin-top:.9rem;font-size:.83rem}
+  .form-o{margin-top:1.1rem}
 }
 </style>
 </head>
@@ -426,6 +552,14 @@ footer{
   </div>
 </section>
 
+<section class="testi" id="testimonios">
+  <div class="testi-in">
+    <h2 class="titulo-seccion rv">Lo que dicen los que <em>ya pasaron por acá</em>.</h2>
+    <div class="testi-grid" id="testiGrid"></div>
+    <p class="testi-pie rv">¿Gestionaste tu crédito con nosotros? Contanos cómo te fue por WhatsApp.</p>
+  </div>
+</section>
+
 <section class="faq" id="faq">
   <h2 class="titulo-seccion rv">Las preguntas que <em>todos</em> nos hacen.</h2>
   <details class="rv">
@@ -456,14 +590,114 @@ footer{
   </details>
 </section>
 
-<section class="cta-final">
-  <h2 class="rv">Contanos cuánto necesitás. Nosotros hacemos el resto.</h2>
-  <p class="rv">Consulta gratuita, sin compromiso y sin adelantos.</p>
-  <a class="btn-wsp btn-grande rv" href="https://wa.me/543765377973?text=Hola%2C%20quiero%20consultar%20por%20un%20pr%C3%A9stamo" target="_blank" rel="noopener" style="display:inline-flex">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5-.3.6-.6.8-.4 1.1.7 1.2 1.6 2 2.8 2.6.3.2.5.1.7-.1l.7-.9c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.4 0 .1 0 .7-.2 1.3Z"/></svg>
-    Escribinos por WhatsApp
-  </a>
+
+<section class="form-sec" id="consulta">
+  <div class="form-in">
+    <h2 class="rv">Contanos tu situación y <em>te decimos qué opciones tenés</em>.</h2>
+    <p class="bajada rv">Completá el formulario y nos comunicamos con vos en el día. La consulta no tiene costo ni compromiso, y no te pedimos ningún adelanto.</p>
+
+    <div class="form-caja rv" id="formCaja">
+      <form class="form-cuerpo" id="formConsulta" novalidate>
+        <!-- trampa anti-bot: si viene completa, el envio se descarta -->
+        <div class="trampa" aria-hidden="true">
+          <label>No completar este campo</label>
+          <input type="text" name="apellido_materno" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="campo">
+          <label for="f-nombre">Nombre y apellido <span class="req">*</span></label>
+          <input type="text" id="f-nombre" name="nombre" autocomplete="name" placeholder="Como figura en tu DNI">
+          <span class="error">Escribí tu nombre y apellido.</span>
+        </div>
+
+        <div class="form-fila">
+          <div class="campo">
+            <label for="f-dni">DNI <span class="req">*</span></label>
+            <input type="text" id="f-dni" name="dni" inputmode="numeric" maxlength="10" placeholder="30123456">
+            <span class="pista">Solo números, sin puntos.</span>
+            <span class="error">Ingresá un DNI válido (7 u 8 números).</span>
+          </div>
+          <div class="campo">
+            <label for="f-tel">Teléfono (WhatsApp) <span class="req">*</span></label>
+            <input type="tel" id="f-tel" name="telefono" inputmode="numeric" maxlength="16" placeholder="3765 12-3456">
+            <span class="pista">Con característica, sin el 0 ni el 15.</span>
+            <span class="error">Ingresá un teléfono válido (10 números con la característica).</span>
+          </div>
+        </div>
+
+        <div class="form-fila">
+          <div class="campo">
+            <label for="f-prov">Provincia <span class="req">*</span></label>
+            <select id="f-prov" name="provincia">
+              <option value="">Elegí tu provincia</option>
+          <option value="Buenos Aires">Buenos Aires</option>
+          <option value="CABA">CABA</option>
+          <option value="Catamarca">Catamarca</option>
+          <option value="Chaco">Chaco</option>
+          <option value="Chubut">Chubut</option>
+          <option value="Córdoba">Córdoba</option>
+          <option value="Corrientes">Corrientes</option>
+          <option value="Entre Ríos">Entre Ríos</option>
+          <option value="Formosa">Formosa</option>
+          <option value="Jujuy">Jujuy</option>
+          <option value="La Pampa">La Pampa</option>
+          <option value="La Rioja">La Rioja</option>
+          <option value="Mendoza">Mendoza</option>
+          <option value="Misiones">Misiones</option>
+          <option value="Neuquén">Neuquén</option>
+          <option value="Río Negro">Río Negro</option>
+          <option value="Salta">Salta</option>
+          <option value="San Juan">San Juan</option>
+          <option value="San Luis">San Luis</option>
+          <option value="Santa Cruz">Santa Cruz</option>
+          <option value="Santa Fe">Santa Fe</option>
+          <option value="Santiago del Estero">Santiago del Estero</option>
+          <option value="Tierra del Fuego">Tierra del Fuego</option>
+          <option value="Tucumán">Tucumán</option>
+            </select>
+            <span class="error">Elegí tu provincia.</span>
+          </div>
+          <div class="campo">
+            <label for="f-sit">¿Trabajás o cobrás un beneficio? <span class="req">*</span></label>
+            <select id="f-sit" name="situacion">
+              <option value="">Elegí una opción</option>
+              <option value="Relación de dependencia">Trabajo en relación de dependencia</option>
+              <option value="Monotributista o autónomo">Soy monotributista o autónomo</option>
+              <option value="Jubilación o pensión">Cobro jubilación o pensión</option>
+              <option value="Beneficio social (AUH u otro)">Cobro un beneficio social (AUH u otro)</option>
+              <option value="Trabajo informal">Trabajo, pero sin recibo de sueldo</option>
+              <option value="Otra">Otra situación</option>
+            </select>
+            <span class="error">Contanos tu situación.</span>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="f-monto">¿Cuánto necesitás aproximadamente? <span class="req">*</span></label>
+          <input type="text" id="f-monto" name="monto" inputmode="numeric" placeholder="$ 500.000">
+          <span class="pista">Gestionamos desde $50.000 hasta $10.000.000.</span>
+          <span class="error">Ingresá un monto entre $50.000 y $10.000.000.</span>
+        </div>
+
+        <button type="submit" class="form-enviar" id="btnEnviar">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+          <span>Enviar mi consulta</span>
+        </button>
+
+        <p class="form-legal"><b>Tus datos están protegidos.</b> Los usamos únicamente para evaluar tu crédito y comunicarnos con vos, conforme a la Ley 25.326. No se los damos a nadie más y podés pedir que los borremos cuando quieras.</p>
+      </form>
+
+      <div class="form-ok" id="formOk">
+        <div class="tilde"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3>¡Listo, recibimos tu consulta!</h3>
+        <p>Nos comunicamos con vos en el día por WhatsApp al número que nos dejaste. Recordá que nunca te vamos a pedir dinero por adelantado.</p>
+      </div>
+    </div>
+
+    <p class="form-o rv">¿Preferís escribirnos directo? <a href="https://wa.me/543765377973?text=Hola%2C%20quiero%20consultar%20por%20un%20pr%C3%A9stamo" target="_blank" rel="noopener">Mandanos un WhatsApp</a></p>
+  </div>
 </section>
+
 
 <footer>
   <div class="footer-inner">
@@ -489,7 +723,7 @@ footer{
     </div>
     <div class="footer-legal">
       <p><strong>Aviso legal.</strong> Crédito Finan es una consultora y gestora de créditos. No es una entidad financiera comprendida en la Ley 21.526 ni otorga préstamos con fondos propios: gestiona solicitudes ante entidades crediticias independientes. El otorgamiento de cada crédito, su monto, tasa, costo financiero total (CFT) y condiciones dependen exclusivamente de la evaluación crediticia que realice cada entidad.</p>
-      <p><strong>Protección de datos.</strong> Los datos personales que nos facilites se utilizan únicamente para gestionar tu consulta y solicitud de crédito, conforme a la Ley 25.326 de Protección de Datos Personales. Podés ejercer tus derechos de acceso, rectificación y supresión contactándonos. La Agencia de Acceso a la Información Pública es el órgano de control de la Ley 25.326.</p>
+      <p><strong>Protección de datos.</strong> Los datos que nos dejás en el formulario —nombre, DNI, teléfono, provincia, situación laboral y monto solicitado— se utilizan únicamente para evaluar tu solicitud de crédito y comunicarnos con vos, conforme a la Ley 25.326 de Protección de Datos Personales. No se ceden ni se venden a terceros, y solo se comparten con la entidad crediticia que evalúe tu caso, con tu conformidad. Podés ejercer tus derechos de acceso, rectificación y supresión escribiéndonos por WhatsApp o a nuestra oficina. La Agencia de Acceso a la Información Pública es el órgano de control de la Ley 25.326.</p>
       <p>© 2026 Crédito Finan. Todos los derechos reservados.</p>
     </div>
   </div>
@@ -499,6 +733,31 @@ footer{
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
 <script>
+/* ==========================================================================
+   CONFIGURACIÓN — lo único que hay que tocar acá
+   ========================================================================== */
+
+/* 1. PLANILLA. Pegar entre las comillas la URL que da Google al publicar el
+      Apps Script (ver INSTRUCCIONES-PLANILLA.md). Mientras esté vacío, el
+      formulario sigue funcionando: manda los datos por WhatsApp. */
+var PLANILLA_URL = '';
+
+/* 2. WHATSAPP de Crédito Finan. */
+var WSP = '543765377973';
+
+/* 3. TESTIMONIOS. Reemplazar los de ejemplo por los reales que mande Soledad
+      y poner ejemplo:false en cada uno. Si se borran todos, la sección
+      desaparece sola de la página. */
+var TESTIMONIOS = [
+  { nombre:'Nombre del cliente', lugar:'Posadas, Misiones', estrellas:5, ejemplo:true,
+    texto:'Acá va el comentario real de un cliente. Soledad los junta de WhatsApp y se cargan en esta lista.' },
+  { nombre:'Nombre del cliente', lugar:'Corrientes', estrellas:5, ejemplo:true,
+    texto:'Este es un testimonio de muestra para ver cómo queda la sección. Se reemplaza por uno verdadero antes de publicar.' },
+  { nombre:'Nombre del cliente', lugar:'Posadas, Misiones', estrellas:5, ejemplo:true,
+    texto:'Tercer testimonio de ejemplo. Con tres alcanza: mejor pocos y reales que muchos inventados.' }
+];
+/* ========================================================================== */
+
 (function(){
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -707,6 +966,174 @@ footer{
       yTo((e.clientY - (r.top + r.height/2)) * 0.3);
     });
     btn.addEventListener('mouseleave', function(){ xTo(0); yTo(0); });
+  });
+})();
+</script>
+
+<script>
+/* ==========================================================================
+   TESTIMONIOS + FORMULARIO
+   ========================================================================== */
+(function(){
+
+  /* ---------- Testimonios ---------- */
+  var grid = document.getElementById('testiGrid');
+  var seccionTesti = document.getElementById('testimonios');
+  if(grid){
+    if(!TESTIMONIOS.length){
+      // sin testimonios cargados, la sección no se muestra
+      if(seccionTesti) seccionTesti.style.display = 'none';
+    } else {
+      var estrella = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.7 1.2 6.6-5.9-3.2-5.9 3.2 1.2-6.6L2.5 9l6.6-.9L12 2z"/></svg>';
+      grid.innerHTML = TESTIMONIOS.map(function(t){
+        var n = Math.max(1, Math.min(5, t.estrellas || 5));
+        return '<article class="tcard rv' + (t.ejemplo ? ' ejemplo' : '') + '">' +
+          (t.ejemplo ? '<span class="rotulo-ej">Ejemplo</span>' : '') +
+          '<div class="estrellas" aria-label="' + n + ' de 5 estrellas">' + estrella.repeat(n) + '</div>' +
+          '<blockquote>' + esc(t.texto) + '</blockquote>' +
+          '<div class="quien"><b>' + esc(t.nombre) + '</b>' + esc(t.lugar || '') + '</div>' +
+        '</article>';
+      }).join('');
+    }
+  }
+  function esc(t){
+    return String(t == null ? '' : t)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ---------- Formulario ---------- */
+  var form = document.getElementById('formConsulta');
+  if(!form) return;
+  var caja = document.getElementById('formCaja');
+  var btn  = document.getElementById('btnEnviar');
+  var abierto = Date.now();   // para detectar envíos instantáneos (bots)
+
+  var soloNum = function(v){ return String(v || '').replace(/\D/g, ''); };
+
+  /* Monto con separadores de miles mientras se escribe: menos errores
+     de tipeo y se lee como plata, no como un número suelto. */
+  var iMonto = document.getElementById('f-monto');
+  iMonto.addEventListener('input', function(){
+    var n = soloNum(iMonto.value).slice(0, 9);
+    iMonto.value = n ? '$ ' + Number(n).toLocaleString('es-AR') : '';
+  });
+
+  /* Reglas. Cada una devuelve true si el dato sirve. */
+  var reglas = {
+    'f-nombre': function(v){
+      v = v.trim();
+      if(v.length < 5) return false;
+      if(!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ' -]+$/.test(v)) return false;
+      // nombre y apellido: al menos dos palabras de 2 letras
+      return v.split(/\s+/).filter(function(p){ return p.length >= 2; }).length >= 2;
+    },
+    'f-dni': function(v){
+      var n = soloNum(v);
+      if(n.length < 7 || n.length > 8) return false;
+      if(/^(\d)\1+$/.test(n)) return false;        // 11111111
+      return Number(n) >= 1000000;
+    },
+    'f-tel': function(v){
+      var n = soloNum(v).replace(/^54/, '').replace(/^9/, '');
+      if(n.length !== 10) return false;
+      if(/^(\d)\1+$/.test(n)) return false;        // 1111111111
+      return !/^0/.test(n);                         // sin el 0 inicial
+    },
+    'f-prov': function(v){ return !!v; },
+    'f-sit':  function(v){ return !!v; },
+    'f-monto': function(v){
+      var n = Number(soloNum(v));
+      return n >= 50000 && n <= 10000000;
+    }
+  };
+
+  function campoDe(id){ return document.getElementById(id).closest('.campo'); }
+
+  function validar(id, marcarError){
+    var el = document.getElementById(id);
+    var ok = reglas[id](el.value);
+    var c = campoDe(id);
+    c.classList.toggle('bien', ok);
+    c.classList.toggle('mal', !ok && (marcarError || c.classList.contains('mal')));
+    return ok;
+  }
+
+  // valida al salir del campo, y limpia el error apenas empieza a corregir
+  Object.keys(reglas).forEach(function(id){
+    var el = document.getElementById(id);
+    el.addEventListener('blur',  function(){ if(el.value) validar(id, true); });
+    el.addEventListener('input', function(){ if(campoDe(id).classList.contains('mal')) validar(id, true); });
+    el.addEventListener('change',function(){ validar(id, true); });
+  });
+
+  function armarMensaje(d){
+    return 'Consulta desde la web\n\n' +
+      'Nombre: ' + d.nombre + '\n' +
+      'DNI: ' + d.dni + '\n' +
+      'Teléfono: ' + d.telefono + '\n' +
+      'Provincia: ' + d.provincia + '\n' +
+      'Situación: ' + d.situacion + '\n' +
+      'Necesita: $' + Number(d.monto).toLocaleString('es-AR');
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    // trampa anti-bot: si la completó, no es una persona. Se descarta en
+    // silencio (mostrar el error le enseñaría al bot a evitarla).
+    if(form.apellido_materno.value){ caja.classList.add('listo'); return; }
+    // un humano no completa seis campos en menos de 3 segundos
+    if(Date.now() - abierto < 3000){ caja.classList.add('listo'); return; }
+
+    var todoOk = Object.keys(reglas).map(function(id){ return validar(id, true); })
+                                    .every(Boolean);
+    if(!todoOk){
+      var primerMal = document.querySelector('.campo.mal input, .campo.mal select');
+      if(primerMal){
+        primerMal.scrollIntoView({behavior:'smooth', block:'center'});
+        primerMal.focus({preventScroll:true});
+      }
+      return;
+    }
+
+    var d = {
+      nombre:    document.getElementById('f-nombre').value.trim(),
+      dni:       soloNum(document.getElementById('f-dni').value),
+      telefono:  soloNum(document.getElementById('f-tel').value),
+      provincia: document.getElementById('f-prov').value,
+      situacion: document.getElementById('f-sit').value,
+      monto:     soloNum(document.getElementById('f-monto').value),
+      origen:    'Web',
+      fecha:     new Date().toISOString()
+    };
+
+    btn.disabled = true;
+    btn.querySelector('span').textContent = 'Enviando…';
+
+    function listo(){
+      caja.classList.add('listo');
+      document.getElementById('formOk').scrollIntoView({behavior:'smooth', block:'center'});
+    }
+
+    // Sin planilla configurada (o si el envío falla): el dato no se pierde,
+    // se manda por WhatsApp ya redactado.
+    function porWhatsapp(){
+      var texto = encodeURIComponent(armarMensaje(d));
+      window.open('https://wa.me/' + WSP + '?text=' + texto, '_blank', 'noopener');
+      document.querySelector('#formOk p').textContent =
+        'Se abrió WhatsApp con tu consulta ya escrita: solo tenés que tocar enviar. ' +
+        'Recordá que nunca te vamos a pedir dinero por adelantado.';
+      listo();
+    }
+
+    if(!PLANILLA_URL){ porWhatsapp(); return; }
+
+    fetch(PLANILLA_URL, {
+      method: 'POST',
+      mode: 'no-cors',                                   // Apps Script no necesita respuesta
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify(d)
+    }).then(listo).catch(porWhatsapp);
   });
 })();
 </script>
