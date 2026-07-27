@@ -83,7 +83,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .pstat b{font-family:'Bricolage Grotesque';font-weight:800;font-size:1.5rem;color:var(--hueso);min-width:2.6em;letter-spacing:-.02em}
 .pstat span{font-size:.92rem;color:color-mix(in srgb,var(--hueso) 82%,transparent)}
 .panel-pie{margin-top:1.3rem;padding-top:1.05rem;border-top:1px solid rgba(243,240,233,.12);font-size:.84rem;color:color-mix(in srgb,var(--hueso) 68%,transparent)}
-.nav-links{display:flex;gap:1.8rem;align-items:center;font-weight:500;font-size:.92rem}
+.nav-links{display:flex;gap:1.4rem;align-items:center;font-weight:500;font-size:.92rem}
 .nav-links a{text-decoration:none;opacity:.75;transition:opacity .2s}
 .nav-links a:hover{opacity:1}
 .btn-wsp{
@@ -95,6 +95,10 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;o
 }
 .btn-wsp:hover{background:var(--verde-oscuro);transform:translateY(-1px)}
 .btn-wsp svg{width:17px;height:17px;flex:none}
+/* Entre 760 y 1000px sobreviven los dos links que llevan a convertir */
+@media(max-width:1000px){
+  .nav-links a[href="#oficina"],.nav-links a[href="#faq"]{display:none}
+}
 @media(max-width:760px){
   .nav-links a:not(.btn-wsp){display:none}
   .nav{padding:.8rem 1rem}
@@ -131,9 +135,18 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .swap-live .cur{display:inline-block;position:relative;will-change:transform}
 .swap-live .nxt{display:inline-block;position:absolute;left:0;top:100%;will-change:top}
 .hero-sub{font-size:clamp(1.02rem,1.4vw,1.18rem);color:var(--tinta-suave);max-width:32em;margin-bottom:2.2rem}
-.hero-cta-row{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:2.6rem}
+.hero-cta-row{display:flex;gap:1.1rem 1.4rem;align-items:center;flex-wrap:wrap;margin-bottom:.9rem}
 .btn-grande{font-size:1.05rem;padding:.95rem 1.7rem}
-.hero-nota{font-size:.85rem;color:var(--tinta-suave)}
+.hero-nota{font-size:.86rem;color:var(--tinta-suave);margin-bottom:2.3rem}
+/* Segundo camino a la conversión: el que no quiere abrir WhatsApp baja al
+   formulario. Link, no botón: no compite con el CTA principal. */
+.cta-sec{
+  font-family:'Bricolage Grotesque';font-weight:600;font-size:.95rem;
+  color:var(--verde-oscuro);text-decoration:none;padding-bottom:2px;
+  border-bottom:2px solid color-mix(in srgb,var(--verde) 42%,transparent);
+  transition:color .2s,border-color .2s;
+}
+.cta-sec:hover{color:var(--verde);border-bottom-color:var(--verde)}
 .sellos{display:flex;gap:0;border-top:1px solid var(--linea);flex-wrap:wrap}
 .sello{
   flex:1 1 150px;padding:1.15rem 1.2rem 0 0;
@@ -248,7 +261,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;o
 }
 
 /* ---------- Oficina ---------- */
-.oficina{background:var(--hueso-2);padding:clamp(4.5rem,9vw,7rem) clamp(1.2rem,4vw,3rem)}
+/* Sin fondo propio: quedaba igual que los testimonios y las dos secciones
+   se leían como un solo bloque largo. Ahora alterna hueso / hueso-2. */
+.oficina{padding:clamp(4.5rem,9vw,7rem) clamp(1.2rem,4vw,3rem)}
 .oficina-grid{
   max-width:1280px;margin:0 auto;
   display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
@@ -283,6 +298,15 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .faq details ul{list-style:none;margin:0;padding:0 .2rem 1.4rem;color:var(--tinta-suave);max-width:42em}
 .faq details ul li{position:relative;padding-left:1.5em;margin-bottom:.45em}
 .faq details ul li::before{content:"✓";position:absolute;left:0;color:var(--verde);font-weight:700}
+
+/* ---------- Cierre ----------
+   El formulario ahora está a mitad de página, así que el final necesita su
+   propio pedido: el que leyó todo tiene que tener el botón a mano. */
+.cierre{background:var(--hueso-2);padding:clamp(3.4rem,7vw,5.2rem) clamp(1.2rem,4vw,3rem)}
+.cierre-in{max-width:760px;margin:0 auto;text-align:center}
+.cierre h2{font-size:clamp(1.7rem,3.4vw,2.5rem)}
+.cierre p{margin:.9rem auto 1.9rem;max-width:34em;font-size:clamp(1rem,1.4vw,1.08rem);color:var(--tinta-suave)}
+.cierre-btns{display:flex;gap:1.1rem 1.5rem;justify-content:center;align-items:center;flex-wrap:wrap}
 
 /* ---------- Footer ---------- */
 footer{
@@ -363,6 +387,13 @@ footer{
 .form-sec h2{font-size:clamp(1.9rem,3.8vw,2.9rem);margin-bottom:.8rem}
 .form-sec h2 em{font-style:normal;color:#e8b64c}
 .form-sec .bajada{color:color-mix(in srgb,var(--hueso) 84%,transparent);max-width:44em}
+/* "Qué necesito": vive al lado del formulario, no en el FAQ. Es la duda que
+   frena el envío, así que se contesta antes de pedir los datos. */
+.req-tener{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.5rem;margin:1.4rem 0 2rem}
+.req-tener-tit{font-size:.88rem;color:color-mix(in srgb,var(--hueso) 68%,transparent)}
+.req-tener ul{display:flex;flex-wrap:wrap;gap:.45rem 1.5rem;list-style:none;margin:0;padding:0}
+.req-tener li{display:flex;align-items:center;gap:.4rem;font-size:.93rem;color:color-mix(in srgb,var(--hueso) 93%,transparent)}
+.req-tener .check{color:#7fc08f;font-weight:800}
 .form-caja{
   margin-top:2.4rem;background:var(--hueso);color:var(--tinta);
   border-radius:16px;padding:clamp(1.6rem,3.5vw,2.6rem);
@@ -453,11 +484,12 @@ footer{
   </a>
   <div class="nav-links">
     <a href="#proceso">Cómo funciona</a>
+    <a href="#consulta">Consultá online</a>
     <a href="#oficina">Quiénes somos</a>
     <a href="#faq">Preguntas</a>
     <a class="btn-wsp" href="https://wa.me/543765377973?text=Hola%2C%20quiero%20consultar%20por%20un%20pr%C3%A9stamo" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5-.3.6-.6.8-.4 1.1.7 1.2 1.6 2 2.8 2.6.3.2.5.1.7-.1l.7-.9c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.4 0 .1 0 .7-.2 1.3Z"/></svg>
-      Consultar
+      WhatsApp
     </a>
   </div>
 </nav>
@@ -477,8 +509,9 @@ footer{
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5-.3.6-.6.8-.4 1.1.7 1.2 1.6 2 2.8 2.6.3.2.5.1.7-.1l.7-.9c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.4 0 .1 0 .7-.2 1.3Z"/></svg>
         Consultá tu préstamo
       </a>
-      <span class="hero-nota">Respondemos en el día.</span>
+      <a class="cta-sec" href="#consulta">Dejanos tus datos</a>
     </div>
+    <p class="hero-nota rv">Respondemos en el día · La consulta no tiene costo ni compromiso.</p>
     <div class="sellos rv">
       <div class="sello"><b><span class="check">✓</span>100% online</b><span>Todo el trámite desde tu celular.</span></div>
       <div class="sello"><b><span class="check">✓</span>Oficina propia</b><span>Atención al público, cara a cara.</span></div>
@@ -537,64 +570,19 @@ footer{
   </div>
 </section>
 
-<section class="oficina" id="oficina">
-  <div class="oficina-grid">
-    <div class="oficina-foto rv"><img src="oficina.jpg" alt="Oficina propia de Crédito Finan en Posadas, Misiones"></div>
-    <div class="oficina-txt">
-      <h2 class="rv">Existimos de verdad. Vení a conocernos.</h2>
-      <p class="rv">Crédito Finan es una consultora de crédito con oficina propia y atención al público. Detrás de cada gestión hay personas que dan la cara, no un call center anónimo.</p>
-      <div class="oficina-datos rv">
-        <div><span class="check">✓</span><span><strong>Rivadavia 1642</strong> (entre San Martín y Sarmiento) · Piso 9F, Edificio Mercurio · Posadas</span></div>
-        <div><span class="check">✓</span><span>Operamos en todo el país, gestión 100% online</span></div>
-        <div><span class="check">✓</span><span>Trabajo transparente: sin letra chica ni sorpresas</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="testi" id="testimonios">
-  <div class="testi-in">
-    <h2 class="titulo-seccion rv">Lo que dicen los que <em>ya pasaron por acá</em>.</h2>
-    <div class="testi-grid" id="testiGrid"></div>
-    <p class="testi-pie rv">¿Gestionaste tu crédito con nosotros? Contanos cómo te fue por WhatsApp.</p>
-  </div>
-</section>
-
-<section class="faq" id="faq">
-  <h2 class="titulo-seccion rv">Las preguntas que <em>todos</em> nos hacen.</h2>
-  <details class="rv">
-    <summary>¿Me van a pedir plata por adelantado?</summary>
-    <p>No, nunca. Ese es justamente nuestro sello: no pedimos adelantos ni "gastos de gestión" previos. Si alguien te pide dinero para destrabar un préstamo, desconfiá: es la estafa más común del rubro.</p>
-  </details>
-  <details class="rv">
-    <summary>¿Cuánto puedo pedir y en cuántas cuotas?</summary>
-    <p>Gestionamos préstamos <strong>desde $50.000 hasta $10.000.000</strong>, en pesos, con planes de <strong>3 a 48 cuotas fijas</strong>. El monto y el plazo final dependen de tu perfil y de la entidad que apruebe: escribinos y te decimos en el día qué opciones tenés.</p>
-  </details>
-  <details class="rv">
-    <summary>¿Qué necesito para consultar?</summary>
-    <p>Tené a mano estos requisitos:</p>
-    <ul>
-      <li>DNI</li>
-      <li>Último recibo</li>
-      <li>Movimientos bancarios de los últimos 2 meses</li>
-    </ul>
-    <p>Con eso ya podemos ver qué líneas de crédito se ajustan a tu perfil. La consulta no tiene costo ni compromiso.</p>
-  </details>
-  <details class="rv">
-    <summary>¿Cuánto tarda?</summary>
-    <p>La consulta se responde en el día. Los tiempos de acreditación dependen de la entidad que apruebe tu crédito, pero te acompañamos con seguimiento durante todo el proceso.</p>
-  </details>
-  <details class="rv">
-    <summary>¿Ustedes son un banco?</summary>
-    <p>No. Somos una consultora de crédito: trabajamos con más de 10 entidades crediticias y buscamos entre ellas la mejor opción para vos. La aprobación y las condiciones finales dependen de cada entidad.</p>
-  </details>
-</section>
-
-
 <section class="form-sec" id="consulta">
   <div class="form-in">
     <h2 class="rv">Contanos tu situación y <em>te decimos qué opciones tenés</em>.</h2>
-    <p class="bajada rv">Completá el formulario y nos comunicamos con vos en el día. La consulta no tiene costo ni compromiso, y no te pedimos ningún adelanto.</p>
+    <p class="bajada rv">Completá el formulario y nos comunicamos con vos en el día por WhatsApp. La consulta no tiene costo ni compromiso, y no te pedimos ningún adelanto.</p>
+
+    <div class="req-tener rv">
+      <span class="req-tener-tit">Para avanzar después vas a necesitar:</span>
+      <ul>
+        <li><span class="check">✓</span>DNI</li>
+        <li><span class="check">✓</span>Último recibo</li>
+        <li><span class="check">✓</span>Movimientos bancarios de los últimos 2 meses</li>
+      </ul>
+    </div>
 
     <div class="form-caja rv" id="formCaja">
       <form class="form-cuerpo" id="formConsulta" novalidate>
@@ -695,6 +683,63 @@ footer{
     </div>
 
     <p class="form-o rv">¿Preferís escribirnos directo? <a href="https://wa.me/543765377973?text=Hola%2C%20quiero%20consultar%20por%20un%20pr%C3%A9stamo" target="_blank" rel="noopener">Mandanos un WhatsApp</a></p>
+  </div>
+</section>
+
+<section class="oficina" id="oficina">
+  <div class="oficina-grid">
+    <div class="oficina-foto rv"><img src="oficina.jpg" alt="Oficina propia de Crédito Finan en Posadas, Misiones"></div>
+    <div class="oficina-txt">
+      <h2 class="rv">Existimos de verdad. Vení a conocernos.</h2>
+      <p class="rv">Crédito Finan es una consultora de crédito con oficina propia y atención al público. Detrás de cada gestión hay personas que dan la cara, no un call center anónimo.</p>
+      <div class="oficina-datos rv">
+        <div><span class="check">✓</span><span><strong>Rivadavia 1642</strong> (entre San Martín y Sarmiento) · Piso 9F, Edificio Mercurio · Posadas</span></div>
+        <div><span class="check">✓</span><span>Operamos en todo el país, gestión 100% online</span></div>
+        <div><span class="check">✓</span><span>Trabajo transparente: sin letra chica ni sorpresas</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testi" id="testimonios">
+  <div class="testi-in">
+    <h2 class="titulo-seccion rv">Lo que dicen los que <em>ya pasaron por acá</em>.</h2>
+    <div class="testi-grid" id="testiGrid"></div>
+    <p class="testi-pie rv">¿Gestionaste tu crédito con nosotros? Contanos cómo te fue por WhatsApp.</p>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <h2 class="titulo-seccion rv">Las preguntas que <em>todos</em> nos hacen.</h2>
+  <details class="rv">
+    <summary>¿Me van a pedir plata por adelantado?</summary>
+    <p>No, nunca. Ese es justamente nuestro sello: no pedimos adelantos ni "gastos de gestión" previos. Si alguien te pide dinero para destrabar un préstamo, desconfiá: es la estafa más común del rubro.</p>
+  </details>
+  <details class="rv">
+    <summary>¿Cuánto puedo pedir y en cuántas cuotas?</summary>
+    <p>Gestionamos préstamos <strong>desde $50.000 hasta $10.000.000</strong>, en pesos, con planes de <strong>3 a 48 cuotas fijas</strong>. El monto y el plazo final dependen de tu perfil y de la entidad que apruebe: escribinos y te decimos en el día qué opciones tenés.</p>
+  </details>
+  <details class="rv">
+    <summary>¿Cuánto tarda?</summary>
+    <p>La consulta se responde en el día. Los tiempos de acreditación dependen de la entidad que apruebe tu crédito, pero te acompañamos con seguimiento durante todo el proceso.</p>
+  </details>
+  <details class="rv">
+    <summary>¿Ustedes son un banco?</summary>
+    <p>No. Somos una consultora de crédito: trabajamos con más de 10 entidades crediticias y buscamos entre ellas la mejor opción para vos. La aprobación y las condiciones finales dependen de cada entidad.</p>
+  </details>
+</section>
+
+<section class="cierre">
+  <div class="cierre-in">
+    <h2 class="rv">¿Te quedó alguna duda o querés empezar?</h2>
+    <p class="rv">Contanos tu situación y te decimos en el día qué opciones tenés. Nunca te vamos a pedir dinero por adelantado.</p>
+    <div class="cierre-btns rv">
+      <a class="btn-wsp btn-grande" href="https://wa.me/543765377973?text=Hola%2C%20quiero%20consultar%20por%20un%20pr%C3%A9stamo" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5-.3.6-.6.8-.4 1.1.7 1.2 1.6 2 2.8 2.6.3.2.5.1.7-.1l.7-.9c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.4 0 .1 0 .7-.2 1.3Z"/></svg>
+        Escribinos por WhatsApp
+      </a>
+      <a class="cta-sec" href="#consulta">Completar el formulario</a>
+    </div>
   </div>
 </section>
 
