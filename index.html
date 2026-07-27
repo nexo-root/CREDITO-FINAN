@@ -985,9 +985,14 @@ var TESTIMONIOS = [
       if(seccionTesti) seccionTesti.style.display = 'none';
     } else {
       var estrella = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.7 1.2 6.6-5.9-3.2-5.9 3.2 1.2-6.6L2.5 9l6.6-.9L12 2z"/></svg>';
+      /* Sin la clase .rv a propósito. Estas tarjetas las crea el JS, y el
+         ScrollTrigger.batch('section .rv') del bloque anterior ya armó su
+         lista de elementos antes de que existieran: nunca las revelaría y
+         quedarían invisibles para siempre (pasó, en el celular no se veían).
+         Nacen visibles y la animación se les agrega abajo, aparte. */
       grid.innerHTML = TESTIMONIOS.map(function(t){
         var n = Math.max(1, Math.min(5, t.estrellas || 5));
-        return '<article class="tcard rv' + (t.ejemplo ? ' ejemplo' : '') + '">' +
+        return '<article class="tcard' + (t.ejemplo ? ' ejemplo' : '') + '">' +
           (t.ejemplo ? '<span class="rotulo-ej">Ejemplo</span>' : '') +
           '<div class="estrellas" aria-label="' + n + ' de 5 estrellas">' + estrella.repeat(n) + '</div>' +
           '<blockquote>' + esc(t.texto) + '</blockquote>' +
@@ -1000,6 +1005,33 @@ var TESTIMONIOS = [
     return String(t == null ? '' : t)
       .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
+
+  /* Animación de las tarjetas, agregada acá (después de crearlas).
+     fromTo con final explícito: con gsap.from() el destino sería el estado
+     actual, y si alguna vez arrancan invisibles quedarían invisibles. */
+  if(window.gsap && window.ScrollTrigger && grid && TESTIMONIOS.length){
+    gsap.utils.toArray('.tcard').forEach(function(c, i){
+      gsap.fromTo(c, {y:26, autoAlpha:0},
+        {y:0, autoAlpha:1, duration:.7, ease:'power3.out', delay:(i % 3) * .1,
+         scrollTrigger:{trigger:'.testi-grid', start:'top 88%', once:true}});
+    });
+  }
+
+  /* RED DE SEGURIDAD contra esta familia de bugs.
+     Si por cualquier motivo un elemento con .rv sigue invisible pasados 3
+     segundos (animación que no corrió, ScrollTrigger que no lo alcanzó, CDN
+     caído), se lo muestra. Vale mil veces más que se vea sin animación que
+     que un cliente abra la página y encuentre un hueco en blanco. */
+  setTimeout(function(){
+    document.querySelectorAll('.rv, .tcard').forEach(function(el){
+      var cs = getComputedStyle(el);
+      if(parseFloat(cs.opacity) < .05 || cs.visibility === 'hidden'){
+        el.style.opacity = '1';
+        el.style.visibility = 'visible';
+        el.style.transform = 'none';
+      }
+    });
+  }, 3000);
 
   /* ---------- Formulario ---------- */
   var form = document.getElementById('formConsulta');
