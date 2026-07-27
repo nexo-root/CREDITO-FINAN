@@ -934,6 +934,12 @@ var TESTIMONIOS = [
 
   gsap.registerPlugin(ScrollTrigger);
 
+  /* En el celular, al scrollear se esconde la barra de direcciones y eso cuenta
+     como cambio de tamaño de ventana: ScrollTrigger recalcula todo en medio del
+     scroll y las animaciones dan un salto. Esta opción le dice que ignore esos
+     cambios de alto propios del navegador móvil. */
+  ScrollTrigger.config({ignoreMobileResize:true});
+
   /* Lenis smooth scroll + ScrollTrigger */
   if(window.Lenis){
     var lenis = new Lenis();
@@ -1029,6 +1035,19 @@ var TESTIMONIOS = [
     });
     btn.addEventListener('mouseleave', function(){ xTo(0); yTo(0); });
   });
+
+  /* Recalcular las posiciones de disparo cuando el layout termina de asentarse.
+     Sin esto, GSAP mide todo durante la carga (con la tipografía de respaldo y
+     las imágenes sin cargar) y esas posiciones quedan viejas para siempre.
+     Medido en esta página: cuando llegan las Google Fonts las secciones de
+     abajo se corren ~90px, y el error se acumula hacia abajo. El resultado es
+     que las animaciones disparan en el lugar equivocado y en el celular se ve
+     como un temblor. ScrollTrigger recalcula solo al cambiar el tamaño de la
+     ventana, pero NO cuando cambia la tipografía ni cuando el JS toca el DOM. */
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+  }
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
 })();
 </script>
 
@@ -1089,6 +1108,12 @@ var TESTIMONIOS = [
          scrollTrigger:{trigger:'.testi-grid', start:'top 88%', once:true}});
     });
   }
+
+  /* Esta sección cambia el alto de la página después de que se crearon los
+     triggers del bloque anterior: o desaparece (se van ~958px) o se rellena de
+     tarjetas (aparecen ~958px). En los dos casos, todo lo que está más abajo
+     (FAQ y cierre) quedaría disparando en la posición vieja. */
+  if(window.ScrollTrigger) ScrollTrigger.refresh();
 
   /* RED DE SEGURIDAD contra esta familia de bugs.
      Si por cualquier motivo un elemento con .rv sigue invisible pasados 3
