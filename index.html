@@ -1116,20 +1116,75 @@ var TESTIMONIOS = [
   if(window.ScrollTrigger) ScrollTrigger.refresh();
 
   /* RED DE SEGURIDAD contra esta familia de bugs.
-     Si por cualquier motivo un elemento con .rv sigue invisible pasados 3
-     segundos (animación que no corrió, ScrollTrigger que no lo alcanzó, CDN
-     caído), se lo muestra. Vale mil veces más que se vea sin animación que
-     que un cliente abra la página y encuentre un hueco en blanco. */
-  setTimeout(function(){
+     Si un elemento con .rv sigue invisible cuando ya debería haber aparecido
+     (animación que no corrió, ScrollTrigger que no lo alcanzó, CDN caído), se
+     lo muestra. Vale mil veces más que se vea sin animación que que un cliente
+     encuentre un hueco en blanco.
+
+     Dos reglas que aprendimos a la fuerza:
+
+     1) Rescatar SOLO lo que ya pasó su punto de disparo. La versión anterior
+        mostraba TODA la página a los 3 segundos, incluso lo que faltaba
+        scrollear. Eso no está roto: está esperando su turno. Al mostrarlo antes
+        de tiempo, cuando después llegabas scrolleando la animación se ejecutaba
+        igual sobre un elemento YA visible: lo tiraba 46px abajo y lo subía,
+        chocando con el texto de al lado. Se veía trabado y feo.
+     2) Rescatar a través de GSAP, nunca con estilos inline. GSAP guarda su
+        propia copia de la posición del elemento; si le pisamos el estilo por
+        atrás, él sigue creyendo que está en y:46 y la próxima animación
+        arranca desde ahí (eso era exactamente el salto del punto 1).
+
+     El margen del 70% de la pantalla deja pasar tranquilo el disparo normal,
+     que ocurre al 86%: solo se rescata lo que ya pasó holgadamente su turno. */
+  function rescatarVisibles(){
+    var vh = window.innerHeight;
     document.querySelectorAll('.rv, .tcard').forEach(function(el){
+      var r = el.getBoundingClientRect();
+      /* Único criterio: ¿ya pasó su punto de disparo? Si su borde superior está
+         por encima del 70% de la pantalla, sí (incluye lo que quedó más arriba
+         al cargar la página ya scrolleada, que si no queda invisible para
+         siempre). Si está más abajo, todavía le falta: no se toca. */
+      if(r.top > vh * 0.7) return;
+      /* Acá había un "si se está animando, no tocar" (gsap.isTweening) y era un
+         error: cuando el navegador congela las animaciones (pestaña de fondo,
+         ventana tapada, modo ahorro) GSAP cree que el tween sigue en curso para
+         siempre, así que ese guard saltaba TODO y la pantalla quedaba en blanco.
+         No hace falta: la condición de abajo ya exige que el elemento esté
+         invisible, y el tween va al mismo destino que este set, así que no hay
+         nada con lo que pelear. */
       var cs = getComputedStyle(el);
       if(parseFloat(cs.opacity) < .05 || cs.visibility === 'hidden'){
-        el.style.opacity = '1';
-        el.style.visibility = 'visible';
-        el.style.transform = 'none';
+        if(window.gsap) gsap.set(el, {autoAlpha:1, y:0});
+        else { el.style.opacity='1'; el.style.visibility='visible'; el.style.transform='none'; }
       }
     });
-  }, 3000);
+  }
+  /* El rescate corre en dos momentos, y en los dos revisa lo mismo: solo lo que
+     ya pasó su turno. Nunca "mostrar todo por si acaso": eso es lo que rompía
+     las animaciones.
+
+     - A los 3 segundos de que la página está VISIBLE. Si se abrió en una
+       pestaña de fondo (pasa siempre con los links de WhatsApp), el navegador
+       congela las animaciones: arrancar el reloj ahí mostraría la primera
+       pantalla sin animar. Se espera a que el usuario la mire.
+     - En cada scroll. Así, aunque GSAP no corra nunca (CDN caído), no queda
+       ningún hueco en blanco: cada cosa se muestra al llegar a ella. */
+  function programarRescate(){ setTimeout(rescatarVisibles, 3000); }
+  if(document.hidden){
+    document.addEventListener('visibilitychange', function alVerse(){
+      if(document.hidden) return;
+      document.removeEventListener('visibilitychange', alVerse);
+      programarRescate();
+    });
+  } else {
+    programarRescate();
+  }
+  var revisando = false;
+  window.addEventListener('scroll', function(){
+    if(revisando) return;
+    revisando = true;
+    setTimeout(function(){ revisando = false; rescatarVisibles(); }, 350);
+  }, {passive:true});
 
   /* ---------- Formulario ---------- */
   var form = document.getElementById('formConsulta');
