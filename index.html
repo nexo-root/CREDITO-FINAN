@@ -264,12 +264,11 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;o
 }
 
 /* ---------- Oficina ---------- */
-/* Sin fondo propio: quedaba igual que los testimonios y las dos secciones se
-   leían como un solo bloque largo. Ahora alterna hueso / hueso-2.
-   Si la sección de testimonios está oculta (todavía no hay reales), oficina
-   toma su tono para que no quede pegada al FAQ: el JS marca el body. */
-.oficina{padding:clamp(4.5rem,9vw,7rem) clamp(1.2rem,4vw,3rem)}
-body.sin-testimonios .oficina{background:var(--hueso-2)}
+/* Alternancia de tonos de acá hasta el footer:
+   formulario (verde) → oficina (hueso-2) → FAQ (hueso) → testimonios (hueso-2)
+   → cierre (hueso) → footer (oscuro). Dos secciones seguidas del mismo tono se
+   leen como un bloque solo, por eso se van turnando. */
+.oficina{background:var(--hueso-2);padding:clamp(4.5rem,9vw,7rem) clamp(1.2rem,4vw,3rem)}
 .oficina-grid{
   max-width:1280px;margin:0 auto;
   display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
@@ -308,7 +307,7 @@ body.sin-testimonios .oficina{background:var(--hueso-2)}
 /* ---------- Cierre ----------
    El formulario ahora está a mitad de página, así que el final necesita su
    propio pedido: el que leyó todo tiene que tener el botón a mano. */
-.cierre{background:var(--hueso-2);padding:clamp(3.4rem,7vw,5.2rem) clamp(1.2rem,4vw,3rem)}
+.cierre{padding:clamp(3.4rem,7vw,5.2rem) clamp(1.2rem,4vw,3rem)}
 .cierre-in{max-width:760px;margin:0 auto;text-align:center}
 .cierre h2{font-size:clamp(1.7rem,3.4vw,2.5rem)}
 .cierre p{margin:.9rem auto 1.9rem;max-width:34em;font-size:clamp(1rem,1.4vw,1.08rem);color:var(--tinta-suave)}
@@ -346,7 +345,10 @@ footer{
    abiertos: en el rubro del crédito una queja pública de alguien
    a quien no le aprobaron el préstamo frena a todos los demás.
    ============================================================ */
-.testi{background:var(--hueso-2);padding:clamp(4rem,8vw,6.5rem) clamp(1.2rem,4vw,3rem)}
+/* Sección secundaria: vive al final y ocupa menos que el resto, para que no
+   compita con los argumentos de venta que están más arriba. */
+.testi{background:var(--hueso-2);padding:clamp(2.8rem,5.5vw,4rem) clamp(1.2rem,4vw,3rem)}
+.testi .titulo-seccion{font-size:clamp(1.5rem,2.8vw,2.1rem);margin-bottom:clamp(1.6rem,3vw,2.2rem)}
 .testi-in{max-width:1180px;margin:0 auto}
 .testi-grid{
   margin-top:2.6rem;display:grid;
@@ -715,13 +717,6 @@ footer{
   </div>
 </section>
 
-<section class="testi" id="testimonios">
-  <div class="testi-in">
-    <h2 class="titulo-seccion rv">Lo que dicen los que <em>ya pasaron por acá</em>.</h2>
-    <div class="testi-grid" id="testiGrid"></div>
-    <p class="testi-pie rv">¿Gestionaste tu crédito con nosotros? Contanos cómo te fue por WhatsApp.</p>
-  </div>
-</section>
 
 <section class="faq" id="faq">
   <h2 class="titulo-seccion rv">Las preguntas que <em>todos</em> nos hacen.</h2>
@@ -741,6 +736,14 @@ footer{
     <summary>¿Ustedes son un banco?</summary>
     <p>No. Somos una consultora de crédito: trabajamos con más de 10 entidades crediticias y buscamos entre ellas la mejor opción para vos. La aprobación y las condiciones finales dependen de cada entidad.</p>
   </details>
+</section>
+
+<section class="testi" id="testimonios">
+  <div class="testi-in">
+    <h2 class="titulo-seccion rv">Lo que dicen los que <em>ya pasaron por acá</em>.</h2>
+    <div class="testi-grid" id="testiGrid"></div>
+    <p class="testi-pie rv">¿Gestionaste tu crédito con nosotros? Contanos cómo te fue por WhatsApp.</p>
+  </div>
 </section>
 
 <section class="cierre">
@@ -1061,20 +1064,17 @@ var TESTIMONIOS = [
   var grid = document.getElementById('testiGrid');
   var seccionTesti = document.getElementById('testimonios');
   if(grid){
-    /* Los testimonios de ejemplo NO salen en la web publicada. Toda la página
-       se apoya en "existimos de verdad, no somos una estafa": tarjetas que
-       dicen "Ejemplo" y "Nombre del cliente" hacen justo el daño contrario.
-       Se ven solo en la vista previa local. Cuando Soledad manda uno real y se
-       carga acá arriba, se muestran únicamente los reales, sin borrar nada. */
-    var enLocal = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+    /* Mientras no haya comentarios reales se muestran los de ejemplo, con el
+       rótulo "Ejemplo" bien visible: sirven de muestra para que el cliente vea
+       cómo va a quedar la sección. Por eso vive al final de la página, después
+       del FAQ, donde no compite con los argumentos de venta.
+       En cuanto se carga uno real arriba, los de ejemplo desaparecen solos y
+       quedan únicamente los verdaderos, sin tener que borrar nada. */
     var reales  = TESTIMONIOS.filter(function(t){ return !t.ejemplo; });
-    var aMostrar = reales.length ? reales : (enLocal ? TESTIMONIOS : []);
+    var aMostrar = reales.length ? reales : TESTIMONIOS;
     if(!aMostrar.length){
-      // sin testimonios reales, la sección no se muestra. La marca en el body
-      // deja que la sección de oficina tome el tono que perdería al quedar
-      // pegada al FAQ (ver CSS: body.sin-testimonios .oficina)
+      // lista vacía: la sección no se muestra
       if(seccionTesti) seccionTesti.style.display = 'none';
-      document.body.classList.add('sin-testimonios');
     } else {
       var estrella = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.7 1.2 6.6-5.9-3.2-5.9 3.2 1.2-6.6L2.5 9l6.6-.9L12 2z"/></svg>';
       /* Sin la clase .rv a propósito. Estas tarjetas las crea el JS, y el
