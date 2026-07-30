@@ -352,9 +352,10 @@ footer{
 .testi-in{max-width:1180px;margin:0 auto}
 .testi-grid{
   margin-top:2.6rem;display:grid;
-  /* 250px y no 280: con 4 testimonios entran los 4 en una fila. Con 280
-     quedaban 3 arriba y 1 solo abajo, que se lee como error de maquetado. */
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.3rem;
+  /* 300px: con 6 testimonios da 3 arriba y 3 abajo, parejo. Con 250 daban
+     4 y 2, que se lee como error de maquetado. Si cambia la cantidad de
+     testimonios, revisar este número. */
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem;
 }
 .tcard{
   background:var(--hueso);border:1px solid var(--linea);border-radius:14px;
@@ -827,7 +828,14 @@ var TESTIMONIOS = [
   { nombre:'Priscila Casal', estrellas:5,
     texto:'Son súper de confianza y muy buena atención. El dinero llega en el día y sin ningún problema. Gracias.' },
   { nombre:'Andrea Doval', estrellas:5,
-    texto:'¡Excelente atención y asesoramiento! Soledad Verón.' }
+    texto:'¡Excelente atención y asesoramiento! Soledad Verón.' },
+  /* Estas dos vienen de las recomendaciones públicas de Facebook. Se dejaron
+     casi textuales, con su forma de escribir: solo se agregó puntuación para
+     que se entiendan. Un testimonio demasiado prolijo se lee como inventado. */
+  { nombre:'Ale Barrios', estrellas:5,
+    texto:'Este crédito es recomendable por la atención y la seriedad al momento de darte el crédito y pedir los requisitos. Muy buena atención, muy recomendable, es de mucha confianza. Ya es mi segundo crédito y muy conforme.' },
+  { nombre:'Fabián Chifo', estrellas:5,
+    texto:'Me gustó el buen trato personal y cordial en todo momento hacia mi persona, con una buena sonrisa y dispuesta a responder a todas mis preguntas.' }
 ];
 /* ========================================================================== */
 
