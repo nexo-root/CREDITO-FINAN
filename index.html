@@ -352,7 +352,9 @@ footer{
 .testi-in{max-width:1180px;margin:0 auto}
 .testi-grid{
   margin-top:2.6rem;display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem;
+  /* 250px y no 280: con 4 testimonios entran los 4 en una fila. Con 280
+     quedaban 3 arriba y 1 solo abajo, que se lee como error de maquetado. */
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.3rem;
 }
 .tcard{
   background:var(--hueso);border:1px solid var(--linea);border-radius:14px;
@@ -813,13 +815,19 @@ var WSP = '543765377973';
       Para cargar uno real: agregarlo a esta lista con ejemplo:false. Desde ese
       momento la sección aparece sola y muestra únicamente los reales (los de
       ejemplo se pueden dejar acá, no molestan). */
+/* Comentarios REALES que mandaron los clientes por WhatsApp (30/07/2026).
+   Se corrigieron solo errores de tipeo evidentes; el texto y los nombres son
+   los que escribieron ellos. No inventar ni adornar: si hay que agregar uno,
+   se copia tal cual llegó. */
 var TESTIMONIOS = [
-  { nombre:'Nombre del cliente', lugar:'Posadas, Misiones', estrellas:5, ejemplo:true,
-    texto:'Acá va el comentario real de un cliente. Soledad los junta de WhatsApp y se cargan en esta lista.' },
-  { nombre:'Nombre del cliente', lugar:'Corrientes', estrellas:5, ejemplo:true,
-    texto:'Este es un testimonio de muestra para ver cómo queda la sección. Se reemplaza por uno verdadero antes de publicar.' },
-  { nombre:'Nombre del cliente', lugar:'Posadas, Misiones', estrellas:5, ejemplo:true,
-    texto:'Tercer testimonio de ejemplo. Con tres alcanza: mejor pocos y reales que muchos inventados.' }
+  { nombre:'Yanina Billordo', estrellas:5,
+    texto:'Súper recomendable. Muchas gracias, en especial a Sol por la divina atención y por el asesoramiento. ¡Gracias mil!' },
+  { nombre:'Juan Alberto Fenolle', estrellas:5,
+    texto:'Realmente, por experiencia propia, es recomendable: el trámite es fácil y rápido. Doy gracias a Eliana Micaela Delgado, fue mi asesora de Crédito Finan y con paciencia y asesoramiento me guio en todo el proceso. ¡Gracias a la empresa y a Eliana!' },
+  { nombre:'Priscila Casal', estrellas:5,
+    texto:'Son súper de confianza y muy buena atención. El dinero llega en el día y sin ningún problema. Gracias.' },
+  { nombre:'Andrea Doval', estrellas:5,
+    texto:'¡Excelente atención y asesoramiento! Soledad Verón.' }
 ];
 /* ========================================================================== */
 
