@@ -437,9 +437,11 @@ footer{
 .campo select:invalid{color:#6b7270}
 .campo select option{color:var(--tinta)}
 .campo input::placeholder{color:#6b7270;opacity:1}
-/* trampa anti-bot: invisible para personas, los robots la completan */
-.trampa{position:absolute!important;left:-9999px!important;opacity:0!important;
-  height:0!important;width:0!important;pointer-events:none!important}
+/* Trampa anti-bot: invisible para personas, los robots la completan.
+   Va con display:none, no solo fuera de pantalla: si el campo existe en el
+   layout, el autocompletar del navegador se lo llena a un cliente real. */
+.trampa{display:none!important;position:absolute!important;left:-9999px!important;
+  opacity:0!important;height:0!important;width:0!important;pointer-events:none!important}
 .form-enviar{
   display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
   background:var(--verde);color:var(--hueso);border:none;cursor:pointer;
@@ -605,10 +607,12 @@ footer{
 
     <div class="form-caja rv" id="formCaja">
       <form class="form-cuerpo" id="formConsulta" novalidate>
-        <!-- trampa anti-bot: si viene completa, el envio se descarta -->
+        <!-- Trampa anti-bot. El campo NO se llama como un dato real (antes se
+             llamaba "apellido_materno" y el autocompletar de Chrome se lo
+             llenaba solo a gente de verdad, que quedaba marcada como robot). -->
         <div class="trampa" aria-hidden="true">
           <label>No completar este campo</label>
-          <input type="text" name="apellido_materno" tabindex="-1" autocomplete="off">
+          <input type="text" name="campo_control" tabindex="-1" autocomplete="off">
         </div>
 
         <div class="campo">
@@ -1280,11 +1284,14 @@ var TESTIMONIOS = [
   form.addEventListener('submit', function(e){
     e.preventDefault();
 
-    // trampa anti-bot: si la completó, no es una persona. Se descarta en
-    // silencio (mostrar el error le enseñaría al bot a evitarla).
-    if(form.apellido_materno.value){ caja.classList.add('listo'); return; }
-    // un humano no completa seis campos en menos de 3 segundos
-    if(Date.now() - abierto < 3000){ caja.classList.add('listo'); return; }
+    // Señales anti-spam. NUNCA descartan la consulta: la marcan y la guardan
+    // igual. Antes se tiraba a la basura mostrando el cartel de "enviado", así
+    // que el visitante creía que había mandado y del otro lado no llegaba nada.
+    // Un cliente real perdido cuesta muchísimo más que una fila de spam que
+    // Soledad puede ignorar de un vistazo.
+    var sospecha = '';
+    if(form.campo_control.value)        sospecha = 'campo trampa';
+    else if(Date.now() - abierto < 3000) sospecha = 'envío instantáneo';
 
     var todoOk = Object.keys(reglas).map(function(id){ return validar(id, true); })
                                     .every(Boolean);
@@ -1304,7 +1311,7 @@ var TESTIMONIOS = [
       provincia: document.getElementById('f-prov').value,
       situacion: document.getElementById('f-sit').value,
       monto:     soloNum(document.getElementById('f-monto').value),
-      origen:    'Web',
+      origen:    sospecha ? 'Web · REVISAR (' + sospecha + ')' : 'Web',
       fecha:     new Date().toISOString()
     };
 
