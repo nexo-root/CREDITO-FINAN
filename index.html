@@ -6,9 +6,9 @@
 <title>Crédito Finan — Préstamos personales sin adelantos | Posadas, Misiones</title>
 <link rel="icon" type="image/png" href="simbolo.png">
 <link rel="apple-touch-icon" href="simbolo.png">
-<meta name="description" content="Préstamos de $50.000 a $10.000.000 en 3 a 48 cuotas fijas, sin adelantos. 100% online y oficina propia en Posadas. Consultá por WhatsApp o dejá tus datos.">
+<meta name="description" content="Préstamos de $50.000 a $10.000.000 en 3 a 48 cuotas fijas, sin adelantos. Adelantos en efectivo con tarjeta de crédito hasta $30.000.000. 100% online y oficina propia en Posadas.">
 <meta property="og:title" content="Crédito Finan — Solución Efectiva">
-<meta property="og:description" content="Préstamos personales con más de 10 entidades. Sin adelantos. 100% online. Oficina propia.">
+<meta property="og:description" content="Préstamos personales con más de 10 entidades y adelantos en efectivo con tarjeta de crédito hasta $30.000.000. Sin pagos por adelantado. 100% online. Oficina propia.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,10 @@
   "address": {"@type": "PostalAddress", "streetAddress": "Rivadavia 1642, Piso 9F, Edificio Mercurio", "addressLocality": "Posadas", "addressRegion": "Misiones", "addressCountry": "AR"},
   "telephone": "+543765377973",
   "sameAs": ["https://www.facebook.com/share/193cxbmU1e/", "https://www.instagram.com/credifinan"],
-  "makesOffer": {"@type": "Offer", "name": "Préstamos personales", "priceCurrency": "ARS", "priceSpecification": {"@type": "PriceSpecification", "minPrice": 50000, "maxPrice": 10000000, "priceCurrency": "ARS"}}
+  "makesOffer": [
+    {"@type": "Offer", "name": "Préstamos personales", "priceCurrency": "ARS", "priceSpecification": {"@type": "PriceSpecification", "minPrice": 50000, "maxPrice": 10000000, "priceCurrency": "ARS"}},
+    {"@type": "Offer", "name": "Adelantos de efectivo con tarjeta de crédito", "priceCurrency": "ARS", "priceSpecification": {"@type": "PriceSpecification", "maxPrice": 30000000, "priceCurrency": "ARS"}}
+  ]
 }
 </script>
 <style>
@@ -387,6 +390,35 @@ footer{
 .testi-pie{margin-top:1.8rem;font-size:.95rem;color:var(--tinta-suave)}
 
 /* ============================================================
+   ADELANTOS CON TARJETA DE CRÉDITO
+   Servicio nuevo que pidió Soledad (02/09/2026): efectivo contra
+   el disponible de la tarjeta, hasta $30.000.000. Ojo con la
+   palabra "adelanto": acá es plata que RECIBE el cliente, no un
+   pago previo — la nota final lo aclara para no chocar con el
+   mensaje antiestafa de toda la página.
+   ============================================================ */
+.adelantos{padding:clamp(3.5rem,7vw,5.5rem) clamp(1.2rem,4vw,3rem);max-width:1280px;margin:0 auto}
+.adelantos-caja{
+  background:var(--verde-tinte);border:1px solid var(--linea);border-radius:16px;
+  padding:clamp(1.9rem,4.5vw,3.2rem);
+  display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(1.6rem,4vw,3.2rem);align-items:center;
+}
+.adelantos .ad-kicker{display:block;font-size:.85rem;font-weight:600;letter-spacing:.02em;color:var(--verde);margin-bottom:.55rem}
+.adelantos h2{font-size:clamp(1.75rem,3.5vw,2.7rem);max-width:15em}
+.adelantos h2 em{font-style:normal;color:var(--verde)}
+.adelantos-txt p{margin-top:1rem;color:var(--tinta-suave);max-width:36em;line-height:1.55}
+.adelantos-nota{font-size:.92rem}
+.adelantos-txt .cta-sec{margin-top:1.3rem;display:inline-block}
+.adelantos-cifra{text-align:center;padding:1.4rem 1rem;border-left:1px solid var(--linea)}
+.adelantos-cifra .ad-hasta{display:block;font-size:.88rem;color:var(--tinta-suave)}
+.adelantos-cifra b{display:block;margin:.25rem 0 .45rem;font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(2.1rem,4vw,2.9rem);line-height:1;letter-spacing:-.04em;color:var(--verde-oscuro);font-variant-numeric:tabular-nums}
+.adelantos-cifra .ad-segun{display:block;font-size:.9rem;color:var(--tinta-suave);max-width:16em;margin:0 auto}
+@media(max-width:820px){
+  .adelantos-caja{grid-template-columns:1fr}
+  .adelantos-cifra{border-left:none;border-top:1px solid var(--linea);padding:1.4rem 0 .2rem}
+}
+
+/* ============================================================
    FORMULARIO
    Los 5 datos que pidió Soledad. Con validación real: sin un DNI
    y un teléfono válidos no se puede enviar, así se filtra a quien
@@ -563,6 +595,7 @@ footer{
         <span class="pm-kicker">Gestionamos préstamos de hasta</span>
         <b class="pm-cifra" data-count="10000000" data-prefix="$" data-sep="1">$10.000.000</b>
         <span class="pm-detalle">Desde <b>$50.000</b> · en <b>3 a 48 cuotas</b> fijas, en pesos</span>
+        <span class="pm-detalle">Con tarjeta de crédito: adelantos en efectivo hasta <b>$30.000.000</b></span>
       </div>
       <div class="panel-stats">
         <div class="pstat"><b data-count="0" data-prefix="$">$0</b><span>de adelanto. Nunca.</span></div>
@@ -606,6 +639,23 @@ footer{
     <div class="paso-txt rv">
       <h3>Recibís tu préstamo</h3>
       <p>Con la aprobación de la entidad, el dinero llega directo a tu cuenta. Todo online, con seguimiento nuestro de principio a fin.</p>
+    </div>
+  </div>
+</section>
+
+<section class="adelantos" id="adelantos">
+  <div class="adelantos-caja rv">
+    <div class="adelantos-txt">
+      <span class="ad-kicker">También en Crédito Finan</span>
+      <h2>¿Tenés tarjeta de crédito? <em>Convertí tu disponible en efectivo.</em></h2>
+      <p>Te adelantamos efectivo contra el disponible de tu tarjeta de crédito, según el límite que tengas. Lo consultás igual que un préstamo: nos escribís o dejás tus datos, y te decimos en el día cuánto podés recibir.</p>
+      <p class="adelantos-nota"><strong>Y la regla de siempre sigue firme:</strong> el efectivo lo recibís vos. Nunca te pedimos plata por adelantado para nada.</p>
+      <a class="cta-sec" href="#consulta">Consultar por un adelanto</a>
+    </div>
+    <div class="adelantos-cifra">
+      <span class="ad-hasta">Adelantos de hasta</span>
+      <b data-count="30000000" data-prefix="$" data-sep="1">$30.000.000</b>
+      <span class="ad-segun">según el disponible de tu tarjeta de crédito</span>
     </div>
   </div>
 </section>
@@ -705,8 +755,8 @@ footer{
         <div class="campo">
           <label for="f-monto">¿Cuánto necesitás aproximadamente? <span class="req">*</span></label>
           <input type="text" id="f-monto" name="monto" inputmode="numeric" placeholder="$ 500.000">
-          <span class="pista">Gestionamos desde $50.000 hasta $10.000.000.</span>
-          <span class="error">Ingresá un monto entre $50.000 y $10.000.000.</span>
+          <span class="pista">Préstamos desde $50.000 hasta $10.000.000 · con tarjeta de crédito, adelantos hasta $30.000.000.</span>
+          <span class="error">Ingresá un monto entre $50.000 y $30.000.000.</span>
         </div>
 
         <button type="submit" class="form-enviar" id="btnEnviar">
@@ -767,6 +817,10 @@ footer{
   <details class="rv">
     <summary>¿Cuánto puedo pedir y en cuántas cuotas?</summary>
     <p>Gestionamos préstamos <strong>desde $50.000 hasta $10.000.000</strong>, en pesos, con planes de <strong>3 a 48 cuotas fijas</strong>. El monto y el plazo final dependen de tu perfil y de la entidad que apruebe: escribinos y te decimos en el día qué opciones tenés.</p>
+  </details>
+  <details class="rv">
+    <summary>¿Dan adelantos de efectivo con tarjeta de crédito?</summary>
+    <p>Sí. Si tenés tarjeta de crédito con disponible, te adelantamos efectivo contra ese límite, <strong>hasta $30.000.000</strong>. El monto exacto depende del disponible que tenga tu tarjeta: escribinos y te lo confirmamos en el día. Y ojo, no confundir: esto es plata que recibís vos — nosotros seguimos sin cobrarte nada por adelantado, jamás.</p>
   </details>
   <details class="rv">
     <summary>¿Cuánto tarda?</summary>
@@ -1283,8 +1337,10 @@ var TESTIMONIOS = [
     'f-prov': function(v){ return !!v; },
     'f-sit':  function(v){ return !!v; },
     'f-monto': function(v){
+      /* Tope $30M: es el máximo de los adelantos con tarjeta (los préstamos
+         llegan a $10M, pero acá no sabemos cuál de los dos quiere). */
       var n = Number(soloNum(v));
-      return n >= 50000 && n <= 10000000;
+      return n >= 50000 && n <= 30000000;
     }
   };
 
