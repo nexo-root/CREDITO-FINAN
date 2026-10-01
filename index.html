@@ -237,6 +237,19 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;o
   max-width:36em;color:color-mix(in srgb,var(--hueso) 82%,transparent);
 }
 
+/* ---------- Con quiénes trabajamos ----------
+   Lo pidió Soledad el 01/10/2026: que se vea a quién le gestionan créditos.
+   La lista es la de ella, palabra por palabra; no agregar grupos sin preguntarle. */
+.quienes{padding:clamp(4.5rem,9vw,7rem) clamp(1.2rem,4vw,3rem) 0;max-width:1280px;margin:0 auto}
+.quienes .titulo-seccion{margin-bottom:clamp(1.8rem,4vw,2.8rem)}
+.quienes-lista{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(1.5rem,3vw,2.5rem);border-top:1px solid var(--linea)}
+.quienes-lista li{display:flex;align-items:baseline;gap:.65rem;padding:1.35rem 0 1.45rem;border-bottom:1px solid var(--linea)}
+.quienes-lista .check{color:var(--verde);font-weight:800}
+.quienes-lista b{display:block;font-family:'Bricolage Grotesque';font-weight:700;font-size:clamp(1.15rem,1.7vw,1.35rem);line-height:1.2}
+.quienes-lista .det{display:block;margin-top:.3rem;font-size:.92rem;color:var(--tinta-suave)}
+@media(max-width:900px){.quienes-lista{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.quienes-lista{grid-template-columns:1fr}.quienes-lista li{padding:1.05rem 0 1.15rem}}
+
 /* ---------- Proceso ---------- */
 .proceso{padding:clamp(4.5rem,9vw,7rem) clamp(1.2rem,4vw,3rem);max-width:1280px;margin:0 auto}
 .titulo-seccion{font-size:clamp(2rem,4.4vw,3.4rem);max-width:14em;margin-bottom:clamp(2.5rem,6vw,4.5rem)}
@@ -616,6 +629,18 @@ footer{
     <h2 class="rv">Para gestionar tu crédito <span class="tach">no hace falta pagar antes</span>. Acá, jamás.</h2>
     <p class="rv">Si alguien te pide un adelanto para "liberar" un préstamo, es una estafa. En Crédito Finan no cobramos nada por adelantado: primero conseguimos tu línea de crédito aprobada, y recién ahí avanzamos. Así de simple.</p>
   </div>
+</section>
+
+<section class="quienes" id="con-quienes">
+  <h2 class="titulo-seccion rv">Con quiénes <em>trabajamos</em>.</h2>
+  <ul class="quienes-lista">
+    <li class="rv"><span class="check" aria-hidden="true">✓</span><div><b>Empleados públicos</b><span class="det">De todas las provincias</span></div></li>
+    <li class="rv"><span class="check" aria-hidden="true">✓</span><div><b>Empleados nacionales</b></div></li>
+    <li class="rv"><span class="check" aria-hidden="true">✓</span><div><b>Empleados municipales</b></div></li>
+    <li class="rv"><span class="check" aria-hidden="true">✓</span><div><b>Empleados privados</b></div></li>
+    <li class="rv"><span class="check" aria-hidden="true">✓</span><div><b>Jubilados y pensionados</b><span class="det">De ANSES e IPS</span></div></li>
+    <li class="rv"><span class="check" aria-hidden="true">✓</span><div><b>Retirados de las fuerzas</b></div></li>
+  </ul>
 </section>
 
 <section class="proceso" id="proceso">
