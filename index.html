@@ -12,6 +12,7 @@
 <meta property="og:title" content="Crédito Finan — Solución Efectiva">
 <meta property="og:description" content="Préstamos personales con más de 10 entidades y adelantos en efectivo con tarjeta de crédito hasta $30.000.000. Sin pagos por adelantado. 100% online. Oficina propia.">
 <meta property="og:type" content="website">
+<link rel="canonical" href="https://creditofinan.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -348,6 +349,7 @@ footer{
 .f-redes svg{width:17px;height:17px;flex:none}
 .footer-legal{border-top:1px solid rgba(243,240,233,.15);padding-top:1.5rem;line-height:1.7;max-width:70em}
 .footer-legal p{margin-bottom:.6rem}
+.footer-legal a{color:var(--hueso);text-decoration:underline;text-underline-offset:3px}
 
 /* ---------- Reveals (JS agrega .in) ---------- */
 .rv{opacity:0;transform:translateY(26px)}
@@ -499,6 +501,10 @@ footer{
 .form-enviar:hover{background:var(--verde-oscuro);transform:translateY(-1px)}
 .form-enviar:disabled{opacity:.6;cursor:wait;transform:none}
 .form-enviar svg{width:18px;height:18px;flex:none}
+.campo-acepto{flex-direction:row;flex-wrap:wrap;align-items:flex-start;gap:.65rem}
+.campo .campo-acepto input,.campo-acepto input{width:22px;height:22px;padding:0;margin-top:.15rem;flex:none;accent-color:var(--verde);cursor:pointer}
+.campo-acepto label{flex:1;font-weight:500;font-size:.88rem;line-height:1.45;cursor:pointer}
+.campo-acepto .error{flex-basis:100%}
 .form-legal{margin-top:1.1rem;font-size:.85rem;color:var(--tinta-suave);line-height:1.5}
 .form-legal b{color:var(--tinta)}
 .form-o{margin-top:1.4rem;text-align:center;font-size:.93rem;
@@ -786,12 +792,18 @@ footer{
           <span class="error">Ingresá un monto entre $50.000 y $30.000.000.</span>
         </div>
 
+        <div class="campo campo-acepto">
+          <input type="checkbox" id="f-acepto" name="acepto">
+          <label for="f-acepto">Acepto que Crédito Finan use estos datos para gestionar mi consulta y presentarla ante entidades crediticias, según la <a href="legal.html#privacidad" target="_blank" rel="noopener">política de privacidad</a>. <span class="req">*</span></label>
+          <span class="error">Para enviar la consulta tenés que aceptar.</span>
+        </div>
+
         <button type="submit" class="form-enviar" id="btnEnviar">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
           <span>Enviar mi consulta</span>
         </button>
 
-        <p class="form-legal"><b>Tus datos están protegidos.</b> Los usamos únicamente para evaluar tu crédito y comunicarnos con vos, conforme a la Ley 25.326. No se los damos a nadie más y podés pedir que los borremos cuando quieras.</p>
+        <p class="form-legal"><b>Tus datos los cuidamos.</b> Los usamos solo para gestionar tu crédito y comunicarnos con vos, conforme a la Ley 25.326. Se los mostramos únicamente a las entidades crediticias a las que presentamos tu consulta, no los vendemos, y podés pedir que los borremos cuando quieras. <a href="legal.html#privacidad">Cómo los tratamos</a>.</p>
       </form>
 
       <div class="form-ok" id="formOk">
@@ -906,7 +918,8 @@ footer{
     </div>
     <div class="footer-legal">
       <p><strong>Aviso legal.</strong> Crédito Finan es una consultora y gestora de créditos. No es una entidad financiera comprendida en la Ley 21.526 ni otorga préstamos con fondos propios: gestiona solicitudes ante entidades crediticias independientes. El otorgamiento de cada crédito, su monto, tasa, costo financiero total (CFT) y condiciones dependen exclusivamente de la evaluación crediticia que realice cada entidad.</p>
-      <p><strong>Protección de datos.</strong> Los datos que nos dejás en el formulario (nombre, DNI, teléfono, provincia, situación laboral y monto solicitado) se utilizan únicamente para evaluar tu solicitud de crédito y comunicarnos con vos, conforme a la Ley 25.326 de Protección de Datos Personales. No se ceden ni se venden a terceros, y solo se comparten con la entidad crediticia que evalúe tu caso, con tu conformidad. Podés ejercer tus derechos de acceso, rectificación y supresión escribiéndonos por WhatsApp o a nuestra oficina. La Agencia de Acceso a la Información Pública es el órgano de control de la Ley 25.326.</p>
+      <p><strong>Protección de datos.</strong> Los datos que nos dejás en el formulario (nombre, DNI, teléfono, provincia, situación laboral y monto solicitado) se utilizan únicamente para evaluar tu solicitud de crédito y comunicarnos con vos, conforme a la Ley 25.326 de Protección de Datos Personales. No se venden: solo se comparten, con tu conformidad, con las entidades crediticias a las que presentamos tu consulta, y se guardan en servicios de Google. Podés ejercer tus derechos de acceso, rectificación y supresión escribiéndonos por WhatsApp o a nuestra oficina. La Agencia de Acceso a la Información Pública es el órgano de control de la Ley 25.326.</p>
+      <p><a href="legal.html">Aviso legal, privacidad y términos</a> · <a href="https://www.argentina.gob.ar/produccion/defensadelconsumidor/formulario" target="_blank" rel="noopener">Defensa de las y los Consumidores. Para reclamos ingrese aquí</a></p>
       <p>© 2026 Crédito Finan. Todos los derechos reservados.</p>
     </div>
   </div>
@@ -1362,6 +1375,7 @@ var TESTIMONIOS = [
       return !/^(\d)\1+$/.test(n);                  // 1111111111
     },
     'f-prov': function(v){ return !!v; },
+    'f-acepto': function(){ return document.getElementById('f-acepto').checked; },
     'f-sit':  function(v){ return !!v; },
     'f-monto': function(v){
       /* Tope $30M: es el máximo de los adelantos con tarjeta (los préstamos
